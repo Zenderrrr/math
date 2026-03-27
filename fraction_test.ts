@@ -46,3 +46,15 @@ Deno.test("1/2 - 1/4 = 1/4 is roughly 0.25", () => {
   // Assert
   assertAlmostEquals(left.toFloat(0.01), 0.25);
 });
+
+Deno.test("creating fraction with denominator 0 throws", () => {
+  assertThrows(() => new Fraction(3, 0), Error, "denominator must not be 0");
+});
+
+Deno.test("parsing fraction with denominator 0 throws", () => {
+  assertThrows(
+    () => Fraction.parse("3 / 0"),
+    Error,
+    "denominator must not be 0",
+  );
+});

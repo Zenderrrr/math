@@ -4,12 +4,21 @@ export class Fraction {
   constructor(
     private numerator: number,
     private denominator: number,
-  ) {}
+  ) {
+    if (denominator === 0) {
+      throw new Error("denominator must not be 0");
+    }
+  }
 
   public add(other: Fraction) {
     const newNumerator =
       this.numerator * other.denominator + other.numerator * this.denominator;
     const newDenominator = this.denominator * other.denominator;
+
+    if (newDenominator === 0) {
+      throw new Error("denominator must not be 0");
+    }
+
     this.numerator = newNumerator;
     this.denominator = newDenominator;
   }
@@ -18,6 +27,11 @@ export class Fraction {
     const newNumerator =
       this.numerator * other.denominator - other.numerator * this.denominator;
     const newDenominator = this.denominator * other.denominator;
+
+    if (newDenominator === 0) {
+      throw new Error("denominator must not be 0");
+    }
+
     this.numerator = newNumerator;
     this.denominator = newDenominator;
   }
@@ -25,6 +39,11 @@ export class Fraction {
   public multiply(other: Fraction) {
     const newNumerator = this.numerator * other.numerator;
     const newDenominator = this.denominator * other.denominator;
+
+    if (newDenominator === 0) {
+      throw new Error("denominator must not be 0");
+    }
+
     this.numerator = newNumerator;
     this.denominator = newDenominator;
   }
@@ -32,6 +51,11 @@ export class Fraction {
   public divide(other: Fraction) {
     const newNumerator = this.numerator * other.denominator;
     const newDenominator = this.denominator * other.numerator;
+
+    if (newDenominator === 0) {
+      throw new Error("denominator must not be 0");
+    }
+
     this.numerator = newNumerator;
     this.denominator = newDenominator;
   }
@@ -49,11 +73,18 @@ export class Fraction {
     if (parts.length != 2) {
       throw new Error(`illegal syntax: "[numerator]/[denominator]" required`);
     }
+
     const numerator = Number.parseInt(parts[0].trim());
     const denominator = Number.parseFloat(parts[1].trim());
+
     if (Number.isNaN(numerator) || Number.isNaN(denominator)) {
       throw new Error(`non-numeric numerator/denominator`);
     }
+
+    if (denominator === 0) {
+      throw new Error("denominator must not be 0");
+    }
+
     return new Fraction(numerator, denominator);
   }
 }
